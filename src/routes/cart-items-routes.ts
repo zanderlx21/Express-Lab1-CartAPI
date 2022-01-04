@@ -6,9 +6,9 @@ const routes = express.Router();
 const cartItems: Cart[] = [
     { id: 1, product: "Slippers", price: 17.99, quantity: 12},
     { id: 2, product: "Pajamas", price: 34.99, quantity: 10},
-    { id: 3, product: "Scarf", price: 22.99, quantity: 20},
+    { id: 3, product: "Scarf", price: 22.99, quantity: 30},
     { id: 4, product: "Hat", price: 24.99, quantity: 15},
-    { id: 5, product: "Socks", price: 12.99, quantity: 30}
+    { id: 5, product: "Socks", price: 12.99, quantity: 25}
 ] 
 
 export default routes;
