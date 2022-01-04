@@ -1,4 +1,4 @@
-import express from "express";
+import express, { response } from "express";
 import Cart from "../models/cart";
 
 const routes = express.Router();
@@ -19,7 +19,6 @@ routes.get("/", function (request, response) {
   let MaxPrice: number = parseInt(request.query.maxPrice as string);
   let Prefix: string = request.query.prefix as string;
   let PageSize = Number.parseInt(request.query.pageSize as string);
-  let cartArray: Cart[] = [];
 
   if (MaxPrice) {
     let queryPrice: number = Number.parseFloat(
@@ -66,13 +65,25 @@ routes.post("/", function (request, response) {
   newItem.id = nextID;
   nextID += 1;
   cartItems.push(newItem);
+//   response.send("Posted!")
   response.status(201).json(cartItems);
 });
 
 routes.put("/:id", function (request, response) {
-    let itemUpdates: Cart = request.body;
-    for (let i  =0 ; i < cartItems.length; i++) {
-
+    cartItems.forEach((item) => {
+        if (item.id === parseInt(request.params.id)){
+        item.price += 10; //increases the price by $10 when PUT REQUEST is executed
     }
-    
+    });
+    response.status(200);
+    // response.send("Item has been updated")
+    response.json(cartItems)
+});
+
+routes.delete("/:id", function (request, response) {
+	let inputId = parseInt(request.params.id);
+	let itemIndex: number =  cartItems.findIndex(item => item.id === inputId);
+	cartItems.splice(itemIndex, 1);
+	response.status(204);
+	response.json("");
 });
